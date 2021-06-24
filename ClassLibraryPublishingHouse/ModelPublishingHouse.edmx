@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PublishingHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+          </Key>
+          <Property Name="IdAuthor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameA" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastNameA" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PatronymA" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="AuthorsOfPublications">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+            <PropertyRef Name="IdPublication" />
+          </Key>
+          <Property Name="IdAuthor" Type="int" Nullable="false" />
+          <Property Name="IdPublication" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Magazine">
+          <Key>
+            <PropertyRef Name="IdMagazine" />
+          </Key>
+          <Property Name="IdMagazine" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublishingDate" Type="date" />
+          <Property Name="MagazineNumber" Type="int" Nullable="false" />
+          <Property Name="CoverImage" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="IdPublication" />
+          </Key>
+          <Property Name="IdPublication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdUDK" Type="int" />
+          <Property Name="IdMagazine" Type="int" />
+          <Property Name="IdType" Type="int" />
+          <Property Name="RegistrationNum" Type="int" />
+          <Property Name="RegDate" Type="date" />
+        </EntityType>
+        <EntityType Name="PublicationType">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicationType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UDK">
+          <Key>
+            <PropertyRef Name="IdUDK" />
+          </Key>
+          <Property Name="IdUDK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UDKName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Salt" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_AuthorsOfPublications_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorsOfPublications" Type="Self.AuthorsOfPublications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="IdAuthor" />
+            </Principal>
+            <Dependent Role="AuthorsOfPublications">
+              <PropertyRef Name="IdAuthor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthorsOfPublications_Publication">
+          <End Role="Publication" Type="Self.Publication" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorsOfPublications" Type="Self.AuthorsOfPublications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="IdPublication" />
+            </Principal>
+            <Dependent Role="AuthorsOfPublications">
+              <PropertyRef Name="IdPublication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_Magazine">
+          <End Role="Magazine" Type="Self.Magazine" Multiplicity="0..1" />
+          <End Role="Publication" Type="Self.Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazine">
+              <PropertyRef Name="IdMagazine" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdMagazine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_PublicationType">
+          <End Role="PublicationType" Type="Self.PublicationType" Multiplicity="0..1" />
+          <End Role="Publication" Type="Self.Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationType">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_UDK">
+          <End Role="UDK" Type="Self.UDK" Multiplicity="0..1" />
+          <End Role="Publication" Type="Self.Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UDK">
+              <PropertyRef Name="IdUDK" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdUDK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PublishingHouseModelStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorsOfPublications" EntityType="Self.AuthorsOfPublications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magazine" EntityType="Self.Magazine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publication" EntityType="Self.Publication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PublicationType" EntityType="Self.PublicationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UDK" EntityType="Self.UDK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AuthorsOfPublications_Author" Association="Self.FK_AuthorsOfPublications_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="AuthorsOfPublications" EntitySet="AuthorsOfPublications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthorsOfPublications_Publication" Association="Self.FK_AuthorsOfPublications_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="AuthorsOfPublications" EntitySet="AuthorsOfPublications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_Magazine" Association="Self.FK_Publication_Magazine">
+            <End Role="Magazine" EntitySet="Magazine" />
+            <End Role="Publication" EntitySet="Publication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_PublicationType" Association="Self.FK_Publication_PublicationType">
+            <End Role="PublicationType" EntitySet="PublicationType" />
+            <End Role="Publication" EntitySet="Publication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_UDK" Association="Self.FK_Publication_UDK">
+            <End Role="UDK" EntitySet="UDK" />
+            <End Role="Publication" EntitySet="Publication" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PublishingHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PublicationType">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Publications" Relationship="PublishingHouseModel.FK_Publication_PublicationType" FromRole="PublicationType" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="UDK">
+          <Key>
+            <PropertyRef Name="IdUDK" />
+          </Key>
+          <Property Name="IdUDK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UDKName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Publications" Relationship="PublishingHouseModel.FK_Publication_UDK" FromRole="UDK" ToRole="Publication" />
+        </EntityType>
+        <EntityContainer Name="PublishingHouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PublicationTypes" EntityType="Self.PublicationType" />
+          <EntitySet Name="UDKs" EntityType="Self.UDK" />
+          <EntitySet Name="Users" EntityType="PublishingHouseModel.User" />
+          <EntitySet Name="Authors" EntityType="PublishingHouseModel.Author" />
+          <EntitySet Name="Magazines" EntityType="PublishingHouseModel.Magazine" />
+          <EntitySet Name="Publications" EntityType="PublishingHouseModel.Publication" />
+          <AssociationSet Name="FK_Publication_Magazine" Association="PublishingHouseModel.FK_Publication_Magazine">
+            <End Role="Magazine" EntitySet="Magazines" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_PublicationType" Association="PublishingHouseModel.FK_Publication_PublicationType">
+            <End Role="PublicationType" EntitySet="PublicationTypes" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_UDK" Association="PublishingHouseModel.FK_Publication_UDK">
+            <End Role="UDK" EntitySet="UDKs" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorsOfPublications" Association="PublishingHouseModel.AuthorsOfPublications">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+          </Key>
+          <Property Name="IdAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="LastNameA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PatronymA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Publications" Relationship="PublishingHouseModel.AuthorsOfPublications" FromRole="Author" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="Magazine">
+          <Key>
+            <PropertyRef Name="IdMagazine" />
+          </Key>
+          <Property Name="IdMagazine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublishingDate" Type="DateTime" Precision="0" />
+          <Property Name="MagazineNumber" Type="Int32" Nullable="false" />
+          <Property Name="CoverImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publications" Relationship="PublishingHouseModel.FK_Publication_Magazine" FromRole="Magazine" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="IdPublication" />
+          </Key>
+          <Property Name="IdPublication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdUDK" Type="Int32" />
+          <Property Name="IdMagazine" Type="Int32" />
+          <Property Name="IdType" Type="Int32" />
+          <Property Name="RegistrationNum" Type="Int32" />
+          <Property Name="RegDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Magazine" Relationship="PublishingHouseModel.FK_Publication_Magazine" FromRole="Publication" ToRole="Magazine" />
+          <NavigationProperty Name="PublicationType" Relationship="PublishingHouseModel.FK_Publication_PublicationType" FromRole="Publication" ToRole="PublicationType" />
+          <NavigationProperty Name="UDK" Relationship="PublishingHouseModel.FK_Publication_UDK" FromRole="Publication" ToRole="UDK" />
+          <NavigationProperty Name="Authors" Relationship="PublishingHouseModel.AuthorsOfPublications" FromRole="Publication" ToRole="Author" />
+        </EntityType>
+        <Association Name="FK_Publication_Magazine">
+          <End Type="PublishingHouseModel.Magazine" Role="Magazine" Multiplicity="0..1" />
+          <End Type="PublishingHouseModel.Publication" Role="Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazine">
+              <PropertyRef Name="IdMagazine" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdMagazine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_PublicationType">
+          <End Type="PublishingHouseModel.PublicationType" Role="PublicationType" Multiplicity="0..1" />
+          <End Type="PublishingHouseModel.Publication" Role="Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationType">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_UDK">
+          <End Type="PublishingHouseModel.UDK" Role="UDK" Multiplicity="0..1" />
+          <End Type="PublishingHouseModel.Publication" Role="Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UDK">
+              <PropertyRef Name="IdUDK" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="IdUDK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorsOfPublications">
+          <End Type="PublishingHouseModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="PublishingHouseModel.Publication" Role="Publication" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PublishingHouseModelStoreContainer" CdmEntityContainer="PublishingHouseEntities">
+          <EntitySetMapping Name="PublicationTypes">
+            <EntityTypeMapping TypeName="PublishingHouseModel.PublicationType">
+              <MappingFragment StoreEntitySet="PublicationType">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="PublicationType1" ColumnName="PublicationType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UDKs">
+            <EntityTypeMapping TypeName="PublishingHouseModel.UDK">
+              <MappingFragment StoreEntitySet="UDK">
+                <ScalarProperty Name="IdUDK" ColumnName="IdUDK" />
+                <ScalarProperty Name="UDKName" ColumnName="UDKName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PublishingHouseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="PublishingHouseModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PatronymA" ColumnName="PatronymA" />
+                <ScalarProperty Name="LastNameA" ColumnName="LastNameA" />
+                <ScalarProperty Name="NameA" ColumnName="NameA" />
+                <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazines">
+            <EntityTypeMapping TypeName="PublishingHouseModel.Magazine">
+              <MappingFragment StoreEntitySet="Magazine">
+                <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
+                <ScalarProperty Name="MagazineNumber" ColumnName="MagazineNumber" />
+                <ScalarProperty Name="PublishingDate" ColumnName="PublishingDate" />
+                <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publications">
+            <EntityTypeMapping TypeName="PublishingHouseModel.Publication">
+              <MappingFragment StoreEntitySet="Publication">
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="RegistrationNum" ColumnName="RegistrationNum" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+                <ScalarProperty Name="IdUDK" ColumnName="IdUDK" />
+                <ScalarProperty Name="PublicationName" ColumnName="PublicationName" />
+                <ScalarProperty Name="IdPublication" ColumnName="IdPublication" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AuthorsOfPublications" TypeName="PublishingHouseModel.AuthorsOfPublications" StoreEntitySet="AuthorsOfPublications">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="IdPublication" ColumnName="IdPublication" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,103 @@
+﻿<Page
+    x:Class="PublishingHouse.PagePublications"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PublishingHouse"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PagePublications"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <DataGrid x:Name="PublicationGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding PublicationName}"
+                        Header="Название" />
+                    <DataGridTemplateColumn Width="auto">
+                        <DataGridTemplateColumn.Header>
+                            <Label>Авторы</Label>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ListBox
+                                    x:Name="lbAuthors"
+                                    Height="auto"
+                                    ItemsSource="{Binding Authors}"
+                                    IsEnabled="False" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding UDK.UDKName}"
+                        Header="УДК" />
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding Magazine.MagazineNumber}"
+                        Header="Номер журнала" />
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding PublicationType}"
+                        Header="Тип публикации" />
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding RegDate}"
+                        Header="Дата регистрации" />
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding RegistrationNum}"
+                        Header="№ регистрации" />
+                    <DataGridTemplateColumn Width="auto">
+                        <DataGridTemplateColumn.Header>
+                            <Label>Действия</Label>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        Width="150"
+                                        Click="EditButton_Click"
+                                        Content="Редактировать"
+                                        Style="{DynamicResource SmallButton}" />
+                                    <Button
+                                        Click="RemoveButton_Click"
+                                        Content="Удалить"
+                                        Style="{DynamicResource SmallButton}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                x:Name="AddButton"
+                Click="AddButton_Click"
+                Content="Добавить"
+                Style="{DynamicResource SmallButton}" />
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="03a09dcb67654461add74be637938307" Name="Diagram1">
+        <EntityTypeShape EntityType="PublishingHouseModel.PublicationType" Width="1.5" PointX="9" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PublishingHouseModel.UDK" Width="1.5" PointX="2.625" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PublishingHouseModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PublishingHouseModel.Author" Width="1.5" PointX="5.375" PointY="5.875" />
+        <EntityTypeShape EntityType="PublishingHouseModel.Magazine" Width="1.5" PointX="9" PointY="0.75" />
+        <EntityTypeShape EntityType="PublishingHouseModel.Publication" Width="1.5" PointX="11.25" PointY="2.875" />
+        <AssociationConnector Association="PublishingHouseModel.FK_Publication_Magazine" />
+        <AssociationConnector Association="PublishingHouseModel.FK_Publication_PublicationType" />
+        <AssociationConnector Association="PublishingHouseModel.FK_Publication_UDK" />
+        <AssociationConnector Association="PublishingHouseModel.AuthorsOfPublications" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
