@@ -40,6 +40,7 @@ namespace PublishingHouse
             }
 
             NewPublication.PublicationName = tbName.Text;
+            NewPublication.Authors.Clear();
             foreach (var item in lbAuthors.SelectedItems)
             {
                 NewPublication.Authors.Add(item as Author);
@@ -64,6 +65,7 @@ namespace PublishingHouse
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dpRegDate.DisplayDate = DateTime.Today;
+            
             lbAuthors.ItemsSource = DB.db.Authors.ToList();
             cbMagazine.ItemsSource = DB.db.Magazines.ToList();
             cbType.ItemsSource = DB.db.PublicationTypes.ToList();
@@ -77,6 +79,7 @@ namespace PublishingHouse
             {
                 tbName.Text = NewPublication.PublicationName;
                 tbRegNo.Text = NewPublication.RegistrationNum.ToString();
+                //lbAuthors.Items.Clear();
                 foreach (var item in NewPublication.Authors)
                 {
                     lbAuthors.SelectedItems.Add(item);
