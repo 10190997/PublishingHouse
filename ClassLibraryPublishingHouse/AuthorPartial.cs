@@ -4,7 +4,7 @@
     {
         public override string ToString()
         {
-            return NameA + " " + LastNameA + " " + PatronymA;
+            return LastNameA + " " + NameA + " " + PatronymA;
         }
     }
 }

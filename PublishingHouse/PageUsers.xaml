@@ -21,6 +21,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="auto"
+                        Binding="{Binding Login}"
+                        Header="Логин" />
+                    <DataGridTextColumn
+                        Width="auto"
                         Binding="{Binding FirstName}"
                         Header="Имя" />
                     <DataGridTextColumn

@@ -1,5 +1,4 @@
 ﻿using ClassLibraryPublishingHouse;
-using System.Net.Mail;
 using System.Text;
 using System.Windows;
 
@@ -35,11 +34,11 @@ namespace PublishingHouse
             {
                 MessageBox.Show("Пароли не совпадают!", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (!CheckEmail(tbEmail.Text))
+            else if (!UserDataCheck.CheckEmail(tbEmail.Text))
             {
                 MessageBox.Show("Неверный email!", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (!IsStrong(PassBox.Password))
+            else if (!UserDataCheck.IsStrong(PassBox.Password))
             {
                 MessageBox.Show("Пароль должен отвечать следующим требованиям:\nМинимум 6 символов\n" +
                         "Минимум 1 прописная буква\n" +
@@ -58,80 +57,6 @@ namespace PublishingHouse
                     MessageBox.Show("Пользователь с такими данными уже зарегистрирован!", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-        }
-
-        private static bool CheckEmail(string email)
-        {
-            try
-            {
-                MailAddress addr = new MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private static bool HasUpper(string password)
-        {
-            foreach (char c in password)
-            {
-                if (char.IsLetter(c) && char.IsUpper(c))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static bool HasDigit(string password)
-        {
-            foreach (char c in password)
-            {
-                if (char.IsDigit(c))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static bool HasSpecialSymbol(string password)
-        {
-            foreach (char c in password)
-            {
-                if (c.Equals('!') ||
-                    c.Equals('@') ||
-                    c.Equals('#') ||
-                    c.Equals('$') ||
-                    c.Equals('%') ||
-                    c.Equals('^'))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool IsLong(string password)
-        {
-            int count = 0;
-            foreach (char c in password)
-            {
-                count++;
-            }
-
-            return count >= 6;
-        }
-
-        public static bool IsStrong(string password)
-        {
-            return IsLong(password) &&
-                HasUpper(password) &&
-                HasDigit(password) &&
-                HasSpecialSymbol(password);
         }
     }
 }

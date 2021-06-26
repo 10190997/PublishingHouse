@@ -86,9 +86,6 @@
     <Compile Include="PageAuthors.xaml.cs">
       <DependentUpon>PageAuthors.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageAuthorsOfPublications.xaml.cs">
-      <DependentUpon>PageAuthorsOfPublications.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageMagazines.xaml.cs">
       <DependentUpon>PageMagazines.xaml</DependentUpon>
     </Compile>
@@ -104,6 +101,7 @@
     <Compile Include="PageUsers.xaml.cs">
       <DependentUpon>PageUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserDataCheck.cs" />
     <Compile Include="WindowRegister.xaml.cs">
       <DependentUpon>WindowRegister.xaml</DependentUpon>
     </Compile>
@@ -148,10 +146,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageAuthors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageAuthorsOfPublications.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

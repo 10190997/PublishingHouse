@@ -4,8 +4,11 @@ using System.Text;
 
 namespace PublishingHouse
 {
-    public class SecurityHelper
+    public class SecurityProvider
     {
+        /// <summary>
+        /// Hashes the password with salt
+        /// </summary>
         public static string HashPassword(string password, string salt, int nIterations, int nHash)
         {
             ASCIIEncoding encoding = new ASCIIEncoding();

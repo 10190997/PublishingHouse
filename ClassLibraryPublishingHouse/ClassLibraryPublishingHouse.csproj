@@ -84,7 +84,7 @@
       <DependentUpon>ModelPublishingHouse.tt</DependentUpon>
     </Compile>
     <Compile Include="PublicationTypePartial.cs" />
-    <Compile Include="SecurityHelper.cs" />
+    <Compile Include="SecurityProvider.cs" />
     <Compile Include="UDK.cs">
       <DependentUpon>ModelPublishingHouse.tt</DependentUpon>
     </Compile>
@@ -92,7 +92,6 @@
     <Compile Include="User.cs">
       <DependentUpon>ModelPublishingHouse.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserPartial.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="ModelPublishingHouse.edmx">

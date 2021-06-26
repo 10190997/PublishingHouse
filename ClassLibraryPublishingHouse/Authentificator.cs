@@ -22,8 +22,7 @@ namespace ClassLibraryPublishingHouse
                 Login = login,
                 FirstName = firstName,
                 LastName = lastName,
-                Salt = login,
-                Password = SecurityHelper.HashPassword(password, login, 10101, 70)
+                Password = SecurityProvider.HashPassword(password, login, 10101, 70)
             };
             DB.db.Users.Add(user);
             DB.db.SaveChanges();
@@ -34,7 +33,7 @@ namespace ClassLibraryPublishingHouse
         {
             List<User> users = DB.db.Users.ToList();
             user = users.SingleOrDefault(x => x.Login == login);
-            var Password = SecurityHelper.HashPassword(password, login, 10101, 70);
+            var Password = SecurityProvider.HashPassword(password, login, 10101, 70);
             return user != null && user.Password == Password
                 ? "OK" : user == null ? "User not found" : user.Password != Password ? "Incorrect password" : null;
         }
