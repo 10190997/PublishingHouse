@@ -104,6 +104,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="App.Config" />
+    <None Include="ClassDiagram.cd" />
     <None Include="ModelPublishingHouse.edmx.diagram">
       <DependentUpon>ModelPublishingHouse.edmx</DependentUpon>
     </None>

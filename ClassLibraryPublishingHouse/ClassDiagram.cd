@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClassLibraryPublishingHouse.Author">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAEAAAAEAAAAACAAAAAAAAAIEAAAAg=</HashCode>
+      <FileName>AuthorPartial.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Publications" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassLibraryPublishingHouse.Magazine">
+    <Position X="0.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAEAAAAAAACAAAIAAABAAAAAEAAAAA=</HashCode>
+      <FileName>MagazinePartial.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Publications" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassLibraryPublishingHouse.Publication">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAQADgAEAAAAABAACABIAAAAAAAAACAACAA=</HashCode>
+      <FileName>Publication.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UDK" />
+      <Property Name="Magazine" />
+      <Property Name="PublicationType" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Authors" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassLibraryPublishingHouse.PublicationType">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABABEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>PublicationType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Publications" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassLibraryPublishingHouse.UDK">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>UDK.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Publications" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClassLibraryPublishingHouse.User">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAACAAAAAAAAAAAAAAAAAAAAAACAAAQAgAAAAg=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
