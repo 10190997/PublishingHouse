@@ -30,13 +30,13 @@ namespace PublishingHouse
             {
                 MessageBox.Show("Попробуйте другой логин", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (PassBox.Password != RepeatPassBox.Password)
-            {
-                MessageBox.Show("Пароли не совпадают!", "", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             else if (!UserDataCheck.CheckEmail(tbEmail.Text))
             {
                 MessageBox.Show("Неверный email!", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (PassBox.Password != RepeatPassBox.Password)
+            {
+                MessageBox.Show("Пароли не совпадают!", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (!UserDataCheck.IsStrong(PassBox.Password))
             {

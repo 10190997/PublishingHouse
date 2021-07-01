@@ -219,13 +219,14 @@
         <Image
             x:Name="TypeChange"
             Grid.Row="5"
-            Grid.Column="2"
+            Grid.Column="4"
             MouseUp="TypeChange_MouseUp"
             Source="icons/forward.png">
             <Image.ToolTip>
                 <ToolTip Content="Типы..." />
             </Image.ToolTip>
         </Image>
+        
         <Image
             x:Name="MagazineChange"
             Grid.Row="2"
